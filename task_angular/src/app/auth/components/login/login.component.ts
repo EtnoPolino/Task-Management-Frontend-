@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,11 @@ export class LoginComponent {
   loginForm!: FormGroup;
   hidePassword = true;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private snackbar: MatSnackBar
+  ) {
     this.loginForm = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
@@ -23,5 +29,17 @@ export class LoginComponent {
 
   onSubmit() {
     console.log(this.loginForm.value);
+
+    this.authService.login(this.loginForm.value).subscribe((response) => {
+      console.log(response);
+      if (response.userId != null) {
+        this.snackbar.open('Log in successful', 'Close', { duration: 5000 });
+      } else {
+        this.snackbar.open('Invalid credential', 'Close', {
+          duration: 5000,
+          panelClass: 'error-snackbar',
+        });
+      }
+    });
   }
 }
