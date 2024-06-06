@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PostTaskComponent } from './components/post-task/post-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { DemoAngularMaterialModule } from 'src/app/DemoAngularMaterialModule';
 
 @NgModule({
   declarations: [DashboardComponent, PostTaskComponent],
@@ -14,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    DemoAngularMaterialModule,
     HttpClientModule,
   ],
 })

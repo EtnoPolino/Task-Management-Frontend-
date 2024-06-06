@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post-task',
@@ -7,13 +8,30 @@ import { AdminService } from '../../services/admin.service';
   styleUrls: ['./post-task.component.scss'],
 })
 export class PostTaskComponent {
-  constructor(private adminService: AdminService) {
+  taskForm!: FormGroup;
+  listOfEmployees: any = [];
+  listOfPriorities: any = ['LOW', 'MEDIUM', 'HIGH'];
+
+  constructor(private adminService: AdminService, private fb: FormBuilder) {
     this.getUsers();
+    this.taskForm = this.fb.group({
+      employeeId: [null, [Validators.required]],
+      title: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      dueDate: [null, [Validators.required]],
+      priority: [null, [Validators.required]],
+    });
   }
 
   getUsers() {
     this.adminService.getUsers().subscribe((response) => {
+      this.listOfEmployees = response;
+
       console.log(response);
     });
+  }
+
+  postTask() {
+    console.log(this.taskForm.value);
   }
 }
