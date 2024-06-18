@@ -17,14 +17,8 @@ export class EmployeeService {
     });
   }
 
-  /*updateStatus(id: number, status: string): Observable<any> {
-    return this.http.get(BASIC_URL + `api/employee/task/${id}/${status}`, {
-      headers: this.createAuthorizationHeader(),
-    });
-  }*/
-
   updateStatus(id: number, status: string): Observable<any> {
-    return this.http.put(BASIC_URL + `api/employee/task/${id}/${status}`, {
+    return this.http.get(BASIC_URL + `api/employee/task/${id}/${status}`, {
       headers: this.createAuthorizationHeader(),
     });
   }

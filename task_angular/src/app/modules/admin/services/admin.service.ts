@@ -53,6 +53,17 @@ export class AdminService {
     });
   }
 
+  createComment(id: number, content: string): Observable<any> {
+    const params = {
+      content: content,
+    };
+
+    return this.http.post(BASIC_URL + `api/admin/task/comment/${id}`, null, {
+      params: params,
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
   /*----------------------------------------------------------------------*/
   private createAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set(
