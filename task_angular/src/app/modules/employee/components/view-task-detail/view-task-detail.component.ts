@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
-import { AdminService } from '../services/admin.service';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { EmployeeService } from '../../services/employee.service';
 
 @Component({
-  selector: 'app-view-task-details',
-  templateUrl: './view-task-details.component.html',
-  styleUrls: ['./view-task-details.component.scss'],
+  selector: 'app-view-task-detail',
+  templateUrl: './view-task-detail.component.html',
+  styleUrls: ['./view-task-detail.component.scss'],
 })
-export class ViewTaskDetailsComponent {
+export class ViewTaskDetailComponent {
   taskId: number = this.activedRoute.snapshot.params['id'];
   taskData: any;
   tasksComments: any;
   commentForm!: FormGroup;
 
   constructor(
-    private adminService: AdminService,
+    private employeeService: EmployeeService,
     private activedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private snackbar: MatSnackBar
@@ -31,13 +31,13 @@ export class ViewTaskDetailsComponent {
   }
 
   getTaskById() {
-    this.adminService.getTaskById(this.taskId).subscribe((reponse) => {
+    this.employeeService.getTaskById(this.taskId).subscribe((reponse) => {
       this.taskData = reponse;
     });
   }
 
   getComments() {
-    this.adminService.getCommentsByTask(this.taskId).subscribe((reponse) => {
+    this.employeeService.getCommentsByTask(this.taskId).subscribe((reponse) => {
       this.tasksComments = reponse;
     });
   }
@@ -45,7 +45,7 @@ export class ViewTaskDetailsComponent {
   publishComment() {
     console.log(this.commentForm.value);
 
-    this.adminService
+    this.employeeService
       .createComment(this.taskId, this.commentForm.get('content')?.value)
       .subscribe((response) => {
         if (response.id != null) {

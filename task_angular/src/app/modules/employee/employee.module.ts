@@ -6,9 +6,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DemoAngularMaterialModule } from 'src/app/DemoAngularMaterialModule';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ViewTaskDetailComponent } from './components/view-task-detail/view-task-detail.component';
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, ViewTaskDetailComponent],
   imports: [
     CommonModule,
     EmployeeRoutingModule,

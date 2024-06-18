@@ -23,6 +23,29 @@ export class EmployeeService {
     });
   }
 
+  getTaskById(id: number): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/employee/task/' + id, {
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
+  createComment(id: number, content: string): Observable<any> {
+    const params = {
+      content: content,
+    };
+
+    return this.http.post(BASIC_URL + `api/employee/task/comment/${id}`, null, {
+      params: params,
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
+  getCommentsByTask(id: number): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/employee/comments/' + id, {
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
   /*----------------------------------------------------------------------*/
   private createAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set(

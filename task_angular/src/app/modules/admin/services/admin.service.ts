@@ -35,12 +35,6 @@ export class AdminService {
     });
   }
 
-  getTaskById(id: number): Observable<any> {
-    return this.http.get(BASIC_URL + 'api/admin/task/' + id, {
-      headers: this.createAuthorizationHeader(),
-    });
-  }
-
   updateTask(id: number, taskDTO: any): Observable<any> {
     return this.http.put(BASIC_URL + `api/admin/task/${id}`, taskDTO, {
       headers: this.createAuthorizationHeader(),
@@ -53,6 +47,12 @@ export class AdminService {
     });
   }
 
+  getTaskById(id: number): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/admin/task/' + id, {
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
   createComment(id: number, content: string): Observable<any> {
     const params = {
       content: content,
@@ -60,6 +60,12 @@ export class AdminService {
 
     return this.http.post(BASIC_URL + `api/admin/task/comment/${id}`, null, {
       params: params,
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
+  getCommentsByTask(id: number): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/admin/comments/' + id, {
       headers: this.createAuthorizationHeader(),
     });
   }
